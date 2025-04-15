@@ -63,3 +63,47 @@ body {
   color: var(--subtitle-color-text--selected);
   font-weight: 500;
 }
+
+.credit__dashboard {
+  border: 2px solid blue;
+  padding: 5px;
+}
+
+.dashboard__header {
+  border: 2px solid green;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.dashboard__button {
+  background: #191919;
+  cursor: pointer;
+  color: #fff;
+  border-radius: 10px;
+  width: 15%;
+  height: 5vh;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  transition: background 0.5s ease, transform 0.5s ease;
+}
+
+.dashboard__button:hover {
+  background: #000;
+  transform: scale(1.02);
+}
+
+.dashboard__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.dashboard h3 {
+  font-size: 1.2vmax;
+}
+
+.dashboard {
+  border: 2px solid green;
+}
