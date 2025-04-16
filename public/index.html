@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema Gestion de Creditos</title>
-    <link rel="stylesheet" href="./styles/header.css" />
+    <link rel="stylesheet" href="./styles/credit.css" />
     <link rel="stylesheet" href="./styles/register.css" />
   </head>
   <body>
@@ -14,24 +14,149 @@
           <h1>Sistema de Gestión de Créditos</h1>
           <nav class="credit__nav">
             <ul class="credit__list">
-              <li class="list__item">Listado de Creditos</li>
+              <li class="list__item list__item--selected">
+                Listado de Creditos
+              </li>
               <li class="list__item">Estadísticas</li>
             </ul>
           </nav>
         </header>
         <article class="credit__dashboard">
-          <header class="dashboard__header">
-            <h2>Créditos Registrados</h2>
-            <div class="dashboard__button">
-              <img
-                class="dashboard__icon"
-                src="./assets/icons/add.png"
-                alt="add-icon"
-              />
-              <h3>Nuevo Crédito</h3>
-            </div>
-          </header>
-          <article class="dashboad"></article>
+          <article class="new-credit">
+            <header class="new-credit__header">
+              <h2>Créditos Registrados</h2>
+              <div class="new-credit__button">
+                <img
+                  class="new-credit__icon"
+                  src="./assets/icons/add.png"
+                  alt="add-icon"
+                />
+                <h3>Nuevo Crédito</h3>
+              </div>
+            </header>
+            <form class="credit__form" action="">
+              <fieldset>
+                <legend class="form__legend">Registrar Nuevo Crédito</legend>
+                <label class="form__label"
+                  >Complete el Formulario para registrar un nuevo crédito</label
+                >
+                <div class="form__layout">
+                  <article class="form__field">
+                    <label
+                      class="form__label form__label--color"
+                      for="client-field"
+                      >Cliente</label
+                    >
+                    <input
+                      class="form__input-text"
+                      id="client-field"
+                      type="text"
+                      required
+                      placeholder="Nombre del cliente"
+                    />
+                  </article>
+
+                  <article class="form__field">
+                    <label
+                      class="form__label form__label--color"
+                      for="amount-field"
+                      >Monto</label
+                    >
+                    <input
+                      class="form__input-text"
+                      id="amount-field"
+                      type="number"
+                      required
+                      placeholder="Monto del Cliente"
+                    />
+                  </article>
+
+                  <article class="form__field">
+                    <label
+                      class="form__label form__label--color"
+                      for="interest-field"
+                      >Tasa del interés (%)</label
+                    >
+                    <input
+                      class="form__input-text"
+                      id="interest-field"
+                      type="number"
+                      required
+                      placeholder="Tasa del Interés actual"
+                    />
+                  </article>
+
+                  <article class="form__field">
+                    <label
+                      class="form__label form__label--color"
+                      for="time-field"
+                      >Plazo (Meses)</label
+                    >
+                    <input
+                      class="form__input-text"
+                      id="time-field"
+                      type="number"
+                      required
+                      placeholder="Plazo en Meses"
+                    />
+                  </article>
+
+                  <article class="form__field">
+                    <label
+                      class="form__label form__label--color"
+                      for="state-field"
+                      >Estado</label
+                    >
+                    <select
+                      class="form__select"
+                      name="state"
+                      id="state-field"
+                      required
+                    >
+                      <option value="">Selecciona una opcion</option>
+                      <option value="pending">Pendiente</option>
+                      <option value="approved">Aprobado</option>
+                      <option value="rejected">Rechazado</option>
+                      <option value="paid">Pagado</option>
+                    </select>
+                  </article>
+
+                  <article class="form__submit">
+                    <button class="form__cancel" type="button">Cancelar</button>
+                    <button class="form__submit" type="submit">
+                      Registrar Crédito
+                    </button>
+                  </article>
+                </div>
+              </fieldset>
+            </form>
+          </article>
+
+          <table class="dashboard__table">
+            <thead class="table__header">
+              <tr>
+                <th>Cliente</th>
+                <th>Monto</th>
+                <th>Tasa</th>
+                <th>Plazo</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+
+            <tbody class="table__body">
+              <tr>
+                <td>John Doe</td>
+                <td>$5000.00</td>
+                <td>12.5%</td>
+                <td>12 meses</td>
+                <td>15 / 04 / 2024</td>
+                <td class="table__state table__state--approved">Aprobado</td>
+                <td>...</td>
+              </tr>
+            </tbody>
+          </table>
         </article>
       </section>
     </main>

@@ -7,5 +7,4 @@ export function listTab() {
             item.classList.add('list__item--selected');
         });
     });
-
 }
