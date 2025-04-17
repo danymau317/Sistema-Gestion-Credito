@@ -37,7 +37,7 @@
             <form class="credit__form" action="">
               <fieldset>
                 <legend class="form__legend">Registrar Nuevo Crédito</legend>
-                <label class="form__label"
+                <label class="form__label form__label--text-align"
                   >Complete el Formulario para registrar un nuevo crédito</label
                 >
                 <div class="form__layout">
@@ -123,7 +123,7 @@
 
                   <article class="form__submit">
                     <button class="form__cancel" type="button">Cancelar</button>
-                    <button class="form__submit" type="submit">
+                    <button class="form__button-submit" type="submit">
                       Registrar Crédito
                     </button>
                   </article>
@@ -132,35 +132,52 @@
             </form>
           </article>
 
-          <table class="dashboard__table">
-            <thead class="table__header">
-              <tr>
-                <th>Cliente</th>
-                <th>Monto</th>
-                <th>Tasa</th>
-                <th>Plazo</th>
-                <th>Fecha</th>
-                <th>Estado</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
+          <div class="table__container">
+            <table class="dashboard__table">
+              <thead class="table__header">
+                <tr>
+                  <th>Cliente</th>
+                  <th>Monto</th>
+                  <th>Tasa</th>
+                  <th>Plazo</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
 
-            <tbody class="table__body">
-              <tr>
-                <td>John Doe</td>
-                <td>$5000.00</td>
-                <td>12.5%</td>
-                <td>12 meses</td>
-                <td>15 / 04 / 2024</td>
-                <td class="table__state table__state--approved">Aprobado</td>
-                <td>...</td>
-              </tr>
-            </tbody>
-          </table>
+              <tbody class="table__body">
+                <tr>
+                  <td>John Doe</td>
+                  <td>$5000.00</td>
+                  <td>12.5%</td>
+                  <td>12 meses</td>
+                  <td>15 / 04 / 2024</td>
+                  <td class="table__state table__state--approved">Aprobado</td>
+                  <td class="table__actions">
+                    <span class="table__actions-toggle">...</span>
+
+                    <div class="table__actions-options">
+                      <div class="actions-options__item">
+                        <img src="./assets/icons/edit.png" alt="edit-icon" />
+                        <p>Editar</p>
+                      </div>
+                      <div class="actions-options__item">
+                        <img
+                          src="./assets/icons/delete.png"
+                          alt="delete-icon"
+                        />
+                        <p class="actions-options-delete-text">Borrar</p>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </article>
       </section>
     </main>
   </body>
   <script type="module" src="../src/js/index.js"></script>
-  <script src="https://animatedicons.co/scripts/embed-animated-icons.js"></script>
 </html>

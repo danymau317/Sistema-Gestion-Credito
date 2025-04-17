@@ -39,7 +39,6 @@ button {
   display: flex;
   flex-flow: column wrap;
   justify-content: space-evenly;
-  gap: 10px;
 }
 
 .credit__header {
@@ -50,7 +49,7 @@ button {
 
 .credit__header h1 {
   border: 2px solid green;
-  font-size: 2.5vmax;
+  font-size: clamp(1.375rem, 1.0545rem + 1.7094vw, 1.875rem);
   font-weight: 600;
   padding: 5px;
 }
@@ -70,7 +69,8 @@ button {
 
 .list__item {
   list-style: none;
-  font-size: 1.2vmax;
+  /* 12px - 18px */
+  font-size: clamp(0.75rem, 0.5096rem + 1.2821vw, 1.125rem);
   cursor: pointer;
   color: var(--subtitle-color-text);
   transition: color 0.5s ease, font-weight 0.5s ease;
@@ -83,6 +83,7 @@ button {
 
 .credit__dashboard {
   border: 2px solid blue;
+  width: 100%;
   padding: 5px;
   display: flex;
   flex-flow: column wrap;
@@ -93,9 +94,11 @@ button {
 .new-credit {
   border: 2px solid purple;
   padding: 5px;
+  width: 100%;
   display: flex;
   flex-flow: column wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  gap: 10px;
 }
 
 .new-credit__header {
@@ -106,7 +109,9 @@ button {
 }
 
 .new-credit__header h2 {
-  font-weight: 500;
+  font-weight: 450;
+  /* 18px - 24px */
+  font-size: clamp(1.125rem, 0.8846rem + 1.2821vw, 1.5rem);
 }
 
 .new-credit__button {
@@ -134,32 +139,45 @@ button {
 }
 
 .new-credit h3 {
-  font-size: 1.2vmax;
+  /* 15px - 20px */
+  font-size: clamp(0.75rem, 0.5897rem + 0.8547vw, 1rem);
 }
 
 .credit__form {
   border: 2px solid green;
   margin-left: 2%;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 1s ease;
+}
+
+.credit__form--enable {
+  max-height: 500px;
+}
+
+.credit__form fieldset {
+  border: none;
 }
 
 .form__legend {
-  font-size: 1.8vmax;
+  font-size: clamp(1.125rem, 0.9647rem + 0.8547vw, 1.375rem);
   font-weight: 700;
   margin-bottom: 5px;
   border: none;
 }
 
 .form__label {
+  border: 2px solid red;
   color: var(--subtitle-color-text);
   font-weight: 500;
 }
-
 .form__label--color {
   color: var(--title-color-text);
 }
 
 .form__layout {
   border: 2px solid red;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(3, auto);
@@ -204,7 +222,6 @@ button {
 
 .form__select {
   font-family: "Inter";
-  font-size: 1vmax;
 }
 
 .form__select option:active {
@@ -218,8 +235,11 @@ button {
   border: 2px solid gray;
 }
 
-.form__input-text::placeholder {
-  font-size: 1vmax;
+.form__select,
+.form__input-text::placeholder,
+.form__cancel,
+.form__button-submit {
+  font-size: clamp(0.9375rem, 0.8574rem + 0.4274vw, 1.0625rem);
 }
 
 article.form__submit {
@@ -230,36 +250,66 @@ article.form__submit {
 }
 
 .form__cancel,
-button.form__submit {
-  width: 40%;
+.form__button-submit {
   cursor: pointer;
-  font-size: 1.2vmax;
-  height: 80%;
+  height: 5vh;
   text-align: center;
   border-radius: 10px;
 }
 
-button.form__submit {
+.form__cancel {
+  width: 40%;
+}
+
+.form__button-submit {
+  width: 50%;
+}
+
+.form__button-submit {
   background: #000;
   color: #fff;
 }
 
-.dashboard__table {
+.table__container {
   border: 2px solid green;
+  padding: 5px;
+  position: relative;
+  overflow: visible;
+  width: 100%;
+}
+
+.dashboard__table {
+  border: 2px solid red;
   width: 100%;
   text-align: center;
+  border-collapse: separate;
+  border-spacing: 20px 5px;
 }
 
 .table__header,
 .table__body {
-  border: 2px solid red;
+  border: 2px solid blue;
   width: 100%;
+}
+
+.dashboard__table,
+.table__header,
+.table__body,
+tr,
+td {
+  overflow: visible; /* <- Añadir esto */
+  position: relative; /* <- Requerido para stacking context */
 }
 
 .table__header th {
   color: var(--subtitle-color-text);
-  font-size: 1.2vmax;
   font-weight: 500;
+}
+
+.table__header th,
+.table__body td {
+  /* 16px a 18px */
+  font-size: clamp(1rem, 0.9199rem + 0.4274vw, 1.125rem);
 }
 
 .table__body
@@ -281,8 +331,57 @@ button.form__submit {
 .table__state {
   background: var(--state-table-background);
   border-radius: 30px;
-  width: 10%;
+  width: 10vw;
+  height: 5vh;
   font-weight: 600;
+}
+
+.table__actions {
+  position: relative;
+}
+
+.table__actions-options {
+  border: 2px solid cyan;
+  background: #fff;
+  position: absolute;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 10;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.table__actions-options--visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.actions-options__item {
+  border: 2px solid salmon;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.actions-options__item p {
+  font-weight: 500;
+  font-size: clamp(0.625rem, 0.4647rem + 0.8547vw, 0.875rem);
+}
+
+.actions-options-delete-text {
+  font-size: clamp(0.625rem, 0.5849rem + 0.2137vw, 0.6875rem);
+  color: red;
+}
+
+.table__actions-options img {
+  width: 20px;
+  height: 20px;
 }
 
 .table__state--approved {
@@ -303,4 +402,90 @@ button.form__submit {
 .table__state--rejected {
   background: var(--state-table-background-rejected);
   color: var(--state-table-color-text-rejected);
+}
+
+@media (min-width: 300px) and (max-width: 768px) {
+  .credit__header h1 {
+    text-align: center;
+  }
+
+  .credit__list {
+    width: 100%;
+  }
+
+  .new-credit {
+    gap: 20px;
+  }
+
+  .new-credit__header {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .new-credit__button {
+    width: 45%;
+  }
+
+  .credit__form fieldset {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .form__legend,
+  .form__label--text-align {
+    text-align: center;
+  }
+
+  .form__layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(5, 1fr);
+    grid-template-areas:
+      "client"
+      "amount"
+      "interest"
+      "time"
+      "state";
+  }
+
+  .form__field {
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .table__container {
+    overflow-x: auto;
+    height: 50vh;
+  }
+
+  .table__container::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .table__container::-webkit-scrollbar-thumb {
+    background: #282828;
+    border-radius: 3px;
+  }
+
+  .dashboard__table {
+    min-width: 100vw;
+  }
+
+  .dashboard__table th,
+  .dashboard__table td {
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .credit__list {
+    width: 50%;
+  }
+
+  .new-credit__button {
+    width: 25%;
+  }
 }
