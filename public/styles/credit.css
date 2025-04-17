@@ -61,7 +61,7 @@ button {
 
 .credit__list {
   border: 2px solid red;
-  width: 25%;
+  width: 35%;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
@@ -152,7 +152,7 @@ button {
 }
 
 .credit__form--enable {
-  max-height: 500px;
+  max-height: 1000px;
 }
 
 .credit__form fieldset {
@@ -184,28 +184,38 @@ button {
   grid-template-areas:
     "client amount"
     "interest time"
-    "state";
-  gap: 10px;
+    "date state"
+    "submit submit";
+  gap: 25px;
+  padding: 5px;
 }
 
-.form__layout:first-child {
+.form__layout .form__field:first-child {
   grid-area: client;
 }
 
-.form__layout:nth-child(2) {
+.form__layout .form__field:nth-child(2) {
   grid-area: amount;
 }
 
-.form__layout:nth-child(3) {
+.form__layout .form__field:nth-child(3) {
   grid-area: interest;
 }
 
-.form__layout:nth-child(4) {
+.form__layout .form__field:nth-child(4) {
   grid-area: time;
 }
 
-.form__layout:last-child {
+.form__layout .form__field:nth-child(5) {
+  grid-area: date;
+}
+
+.form__layout .form__field:nth-child(6) {
   grid-area: state;
+}
+
+.form__layout .form__submit {
+  grid-area: submit;
 }
 
 .form__field {
@@ -242,7 +252,7 @@ button {
   font-size: clamp(0.9375rem, 0.8574rem + 0.4274vw, 1.0625rem);
 }
 
-article.form__submit {
+.form__submit {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
@@ -258,11 +268,12 @@ article.form__submit {
 }
 
 .form__cancel {
-  width: 40%;
+  width: 30%;
+  border-bottom: 2px solid gray;
 }
 
 .form__button-submit {
-  width: 50%;
+  width: 30%;
 }
 
 .form__button-submit {
@@ -442,18 +453,26 @@ td {
 
   .form__layout {
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(7, 1fr);
     grid-template-areas:
       "client"
       "amount"
       "interest"
       "time"
-      "state";
+      "date"
+      "state"
+      "submit";
   }
 
   .form__field {
     justify-content: center;
     gap: 10px;
+  }
+
+  .form__cancel,
+  .form__button-submit {
+    width: 50%;
+    height: 6vh;
   }
 
   .table__container {
