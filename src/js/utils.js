@@ -9,6 +9,28 @@ export function listTab() {
     });
 }
 
+export function showCreditStadistics() {
+    const creditList = document.querySelector('.list__item:first-of-type');
+
+    const creditStadistics = document.querySelector('.list__item:last-of-type');
+
+    const creditArticle = document.querySelector('.credit__dashboard');
+
+    const stadisticCreditArticle = document.querySelector('.graph');
+
+    creditList.addEventListener('click', () => {
+        creditArticle.classList.toggle('credit__dashboard--disable');
+        stadisticCreditArticle.classList.toggle('graph--disable');
+    });
+
+    creditStadistics.addEventListener('click', () => {
+        stadisticCreditArticle.classList.toggle('graph--disable');
+        creditArticle.classList.toggle('credit__dashboard--disable');
+    })
+
+
+}
+
 export function enableForm() {
     const newCreditButton = document.querySelector('.new-credit__button');
     const newCreditForm = document.querySelector('.credit__form');
@@ -23,3 +45,4 @@ export function enableForm() {
         editingRow = null;
     });
 }
+

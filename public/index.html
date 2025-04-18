@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sistema Gestion de Creditos</title>
     <link rel="stylesheet" href="./styles/credit.css" />
-    <link rel="stylesheet" href="./styles/register.css" />
+    <link rel="stylesheet" href="./styles/graph.css" />
   </head>
   <body>
     <main>
@@ -152,6 +152,30 @@
               </tbody>
             </table>
           </div>
+        </article>
+
+        <article class="graph graph--disable">
+          <header class="graph__header">
+            <h2 class="graph__title">Estadísticas de Créditos</h2>
+            <p class="graph__text">
+              Visualización del total de créditos otorgados
+            </p>
+          </header>
+          <article class="graph__stats">
+            <div class="stats__item">
+              <h3 class="stats__title">3</h3>
+              <p class="stats__description">Total de Creditos</p>
+            </div>
+            <div class="stats__item">
+              <h3 class="stats__title">$22,000</h3>
+              <p class="stats__description">Monto Total Otorgado</p>
+            </div>
+            <div class="stats__item">
+              <h3 class="stats__title">$7500</h3>
+              <p class="stats__description">Monto Promedio</p>
+            </div>
+          </article>
+          <article class="graph__visual"></article>
         </article>
       </section>
     </main>

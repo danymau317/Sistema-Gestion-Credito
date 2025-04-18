@@ -1,4 +1,5 @@
 import { renderAll } from "./credit.js";
+import { renderStadistics } from "./stats.js";
 
 export let credits = [];
 
@@ -59,6 +60,7 @@ export async function fetchCredits() {
         console.log("Créditos obtenidos desde la API:", data);
         credits = data;
         renderAll();
+        renderStadistics();
     } catch (error) {
         console.error('Error al obtener los créditos:', error);
     }
