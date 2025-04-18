@@ -1,8 +1,8 @@
-import { handleSubmitForm, listTab } from "./credit.js";
-import { handleTableActions } from "./credit.js";
-import { enableForm } from "./credit.js";
+import { listTab, enableForm } from "./utils.js";
+import { handleSubmitForm, handleTableActions, renderAll } from "./credit.js";
 
 document.addEventListener('DOMContentLoaded', () => {
+    renderAll();
     listTab();
     handleTableActions();
     enableForm();

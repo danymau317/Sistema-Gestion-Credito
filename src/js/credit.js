@@ -1,13 +1,6 @@
-export function listTab() {
-    const listItems = document.querySelectorAll('.list__item');
+import { credits, setCredit, deleteCredit } from "./state.js";
 
-    listItems.forEach((item) => {
-        item.addEventListener('click', () => {
-            listItems.forEach((el) => el.classList.remove('list__item--selected'));
-            item.classList.add('list__item--selected');
-        });
-    });
-}
+let editingRow = null;
 
 export function handleTableActions() {
     const tableBody = document.querySelector('.table__body');
@@ -27,6 +20,21 @@ export function handleTableActions() {
             if (options) {
                 options.classList.toggle('table__actions-options--visible');
             }
+            return;
+        }
+
+        const actionItem = e.target.closest('.actions-options__item');
+        const row = e.target.closest('tr');
+
+        if (actionItem && row) {
+            const action = actionItem.dataset.action;
+
+            if (action === 'delete') {
+                deleteRow(row);
+            }
+            if (action === 'edit') {
+                editRow(row);
+            }
         }
     });
 
@@ -34,20 +42,6 @@ export function handleTableActions() {
         document.querySelectorAll('.table__actions-options').forEach((menu) => {
             menu.classList.remove('table__actions-options--visible');
         });
-    });
-}
-
-export function enableForm() {
-    const newCreditButton = document.querySelector('.new-credit__button');
-    const newCreditForm = document.querySelector('.credit__form');
-    const cancelCreditButton = document.querySelector('.form__cancel');
-
-    newCreditButton.addEventListener('click', () => {
-        newCreditForm.classList.add('credit__form--enable');
-    });
-
-    cancelCreditButton.addEventListener('click', () => {
-        newCreditForm.classList.remove('credit__form--enable');
     });
 }
 
@@ -59,6 +53,7 @@ export function handleSubmitForm() {
         e.preventDefault();
 
         const data = {
+            id: editingRow ? parseInt(editingRow.getAttribute('data-id')) : Date.now(),
             client: form.client.value,
             amount: parseFloat(form.amount.value),
             interest: parseFloat(form.interest.value),
@@ -66,45 +61,77 @@ export function handleSubmitForm() {
             date: form.date.value,
             state: form.state.value
         };
-        console.log(data);
-
-        renderToDashBoard(data);
-
-        form.reset();
-
+        setCredit(data);
+        console.table(credits);
+        renderAll();
+        editingRow = null;
     });
 }
 
-function renderToDashBoard(data) {
+
+function deleteRow(row) {
+    const id = row.getAttribute('data-id');
+    deleteCredit(id);
+    renderAll();
+}
+
+function editRow(row) {
+    const cells = row.querySelectorAll('td');
+    const data = {
+        id: parseInt(row.getAttribute('data-id')),
+        client: cells[1].textContent.trim(),
+        amount: parseFloat(cells[2].textContent.replace('$', '')),
+        interest: parseFloat(cells[3].textContent.replace('%', '')),
+        time: parseInt(cells[4].textContent),
+        date: cells[5].textContent.trim(),
+        state: cells[6].textContent.trim()
+    };
+
+    const form = document.querySelector('.credit__form');
+    form.client.value = data.client;
+    form.amount.value = data.amount;
+    form.interest.value = data.interest;
+    form.time.value = data.time;
+    form.date.value = data.date;
+    form.state.value = data.state;
+
+    form.classList.add('credit__form--enable');
+
+    editingRow = row;
+
+}
+
+export function renderAll() {
     const tableBody = document.querySelector('.table__body');
+    tableBody.innerHTML = '';
 
-    const newTr = document.createElement('tr')
-    newTr.innerHTML = `
-     <td>${data.client}</td>
-        <td>$${data.amount.toFixed(2)}</td>
-        <td>${data.interest.toFixed(2)}%</td>
-        <td>${data.time} meses</td>
-        <td>${data.date}</td>
-        <td class="table__state ${getStateClass(data.state)}">${data.state}</td>
-        <td class="table__actions">
-
-            <span class="table__actions-toggle">...</span>
+    credits.forEach((data) => {
+        const newTr = document.createElement('tr');
+        newTr.setAttribute('data-id', data.id);
+        newTr.innerHTML = `
+            <td>${data.id}</td>
+            <td>${data.client}</td>
+            <td>$${data.amount.toFixed(2)}</td>
+            <td>${data.interest.toFixed(2)}%</td>
+            <td>${data.time} meses</td>
+            <td>${data.date}</td>
+            <td class="table__state ${getStateClass(data.state)}">${data.state}</td>
+            <td class="table__actions">
+                <span class="table__actions-toggle">...</span>
                 <div class="table__actions-options">
-                    <div class="actions-options__item">
+                    <div class="actions-options__item" data-action="edit">
                         <img src="./assets/icons/edit.png" alt="edit-icon" />
                         <p>Editar</p>
                     </div>
-                    <div class="actions-options__item">
-                        <img
-                            src="./assets/icons/delete.png"
-                            alt="delete-icon"
-                        />
+                    <div class="actions-options__item" data-action="delete">
+                        <img src="./assets/icons/delete.png" alt="delete-icon" />
                         <p class="actions-options-delete-text">Borrar</p>
                     </div>
                 </div>
-        </td>
-    `;
-    tableBody.appendChild(newTr);
+            </td>
+        `;
+        tableBody.appendChild(newTr);
+    });
 }
 
 function getStateClass(state) {
