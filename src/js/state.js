@@ -1,24 +1,65 @@
-export let credits = [
-    {
-        id: Date.now(),
-        client: "Daniel Mauricio Saavedra Gonzalez",
-        amount: 20000,
-        interest: 10.5,
-        time: 12,
-        date: '2025-04-15',
-        state: 'pagado'
-    }
-];
+import { renderAll } from "./credit.js";
 
-export function setCredit(newCredit) {
-    const exists = credits.some((credits) => credits.id === newCredit.id);
-    if (exists) {
-        credits = credits.map((credit) => credit.id === newCredit.id ? newCredit : credit);
-    } else {
-        credits = [...credits, newCredit];
+export let credits = [];
+
+export async function setCredit(newCredit) {
+    try {
+        let response;
+        if (newCredit.id) {
+            response = await fetch(`http://127.0.0.1:5000/api/creditos/${newCredit.id}`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newCredit),
+            });
+        } else {
+            response = await fetch('http://127.0.0.1:5000/api/creditos', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newCredit)
+            });
+        }
+
+        if (!response.ok) {
+            throw new Error('Error al guardar el credito');
+        }
+
+        const savedCredit = await response.json();
+        console.log('Credito Guardado', savedCredit);
+        await fetchCredits();
+    } catch (error) {
+        console.log(error);
     }
 }
 
-export function deleteCredit(id) {
-    credits = credits.filter((credit) => credit.id !== parseInt(id));
+export async function deleteCredit(id) {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/api/creditos/${id}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al eliminar el crédito');
+        }
+
+        console.log('Crédito eliminado');
+        renderAll();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export async function fetchCredits() {
+    try {
+        const response = await fetch('http://127.0.0.1:5000/api/creditos');
+        const data = await response.json();
+        console.log("Créditos obtenidos desde la API:", data);
+        credits = data;
+        renderAll();
+    } catch (error) {
+        console.error('Error al obtener los créditos:', error);
+    }
 }

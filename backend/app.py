@@ -1,13 +1,24 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import sqlite3
+import os
 
 app = Flask(__name__)
-DATABASE = "data/database.db"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "data", "database.db")
+CORS(app)
 
 def get_db_connection():
     conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
+
+@app.route('/api/debug', methods=['GET'])
+def debug():
+    conn = get_db_connection()
+    rows = conn.execute("SELECT * FROM creditos").fetchall()
+    conn.close()
+    return jsonify([dict(row) for row in rows])
 
 @app.route('/api/creditos', methods=['GET'])
 def credit_list():
@@ -48,11 +59,10 @@ def update_credit(id):
         WHERE id=?
     ''', (cliente, monto, tasa_interes, plazo, fecha_otorgamiento, id))
     conn.commit()
+    updated_credit = conn.execute('SELECT * FROM creditos WHERE id=?', (id,)).fetchone()
     conn.close()
-    return jsonify({"mensaje": "Crédito actualizado correctamente"}), 200
+    return jsonify(dict(updated_credit)), 200
 
-
-# Ruta para eliminar un crédito
 @app.route('/api/creditos/<int:id>', methods=['DELETE'])
 def delete_credit(id):
     conn = get_db_connection()

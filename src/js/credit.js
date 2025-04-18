@@ -2,6 +2,7 @@ import { credits, setCredit, deleteCredit } from "./state.js";
 
 let editingRow = null;
 
+
 export function handleTableActions() {
     const tableBody = document.querySelector('.table__body');
 
@@ -48,25 +49,24 @@ export function handleTableActions() {
 export function handleSubmitForm() {
     const form = document.querySelector('.credit__form');
 
-    form.addEventListener('submit', (e) => {
-
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+
         const data = {
-            id: editingRow ? parseInt(editingRow.getAttribute('data-id')) : Date.now(),
-            client: form.client.value,
-            amount: parseFloat(form.amount.value),
-            interest: parseFloat(form.interest.value),
-            time: parseInt(form.time.value),
-            date: form.date.value,
-            state: form.state.value
+            id: editingRow ? parseInt(editingRow.getAttribute('data-id')) : null,
+            cliente: form.client.value,
+            monto: parseFloat(form.amount.value),
+            tasa_interes: parseFloat(form.interest.value),
+            plazo: parseInt(form.time.value),
+            fecha_otorgamiento: form.date.value,
         };
-        setCredit(data);
-        console.table(credits);
-        renderAll();
+
+        await setCredit(data);
         editingRow = null;
     });
 }
+
 
 
 function deleteRow(row) {
@@ -79,22 +79,19 @@ function editRow(row) {
     const cells = row.querySelectorAll('td');
     const data = {
         id: parseInt(row.getAttribute('data-id')),
-        client: cells[1].textContent.trim(),
-        amount: parseFloat(cells[2].textContent.replace('$', '')),
-        interest: parseFloat(cells[3].textContent.replace('%', '')),
-        time: parseInt(cells[4].textContent),
-        date: cells[5].textContent.trim(),
-        state: cells[6].textContent.trim()
+        cliente: cells[1].textContent.trim(),
+        monto: parseFloat(cells[2].textContent.replace('$', '')),
+        tasa_interes: parseFloat(cells[3].textContent.replace('%', '')),
+        plazo: parseInt(cells[4].textContent),
+        fecha_otorgamiento: cells[5].textContent.trim(),
     };
 
     const form = document.querySelector('.credit__form');
-    form.client.value = data.client;
-    form.amount.value = data.amount;
-    form.interest.value = data.interest;
-    form.time.value = data.time;
-    form.date.value = data.date;
-    form.state.value = data.state;
-
+    form.client.value = data.cliente;
+    form.amount.value = data.monto;
+    form.interest.value = data.tasa_interes;
+    form.time.value = data.plazo;
+    form.date.value = data.fecha_otorgamiento;
     form.classList.add('credit__form--enable');
 
     editingRow = row;
@@ -105,17 +102,16 @@ export function renderAll() {
     const tableBody = document.querySelector('.table__body');
     tableBody.innerHTML = '';
 
-    credits.forEach((data) => {
+    credits.forEach((data, index) => {
         const newTr = document.createElement('tr');
         newTr.setAttribute('data-id', data.id);
         newTr.innerHTML = `
-            <td>${data.id}</td>
-            <td>${data.client}</td>
-            <td>$${data.amount.toFixed(2)}</td>
-            <td>${data.interest.toFixed(2)}%</td>
-            <td>${data.time} meses</td>
-            <td>${data.date}</td>
-            <td class="table__state ${getStateClass(data.state)}">${data.state}</td>
+            <td>${index + 1}</td>
+            <td>${data.cliente}</td>
+            <td>$${data.monto.toFixed(2)}</td>
+            <td>${data.tasa_interes.toFixed(2)}%</td>
+            <td>${data.plazo} meses</td>
+            <td>${data.fecha_otorgamiento}</td>
             <td class="table__actions">
                 <span class="table__actions-toggle">...</span>
                 <div class="table__actions-options">
@@ -132,17 +128,4 @@ export function renderAll() {
         `;
         tableBody.appendChild(newTr);
     });
-}
-
-function getStateClass(state) {
-    switch (state.toLowerCase()) {
-        case "aprobado":
-            return "table__state--approved";
-        case "pagado":
-            return "table__state--paid"
-        case "pendiente":
-            return "table__state--pending";
-        case "rechazado":
-            return "table__state--rejected";
-    }
 }

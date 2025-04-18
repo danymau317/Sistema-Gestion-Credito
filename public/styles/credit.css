@@ -152,7 +152,7 @@ button {
 }
 
 .credit__form--enable {
-  max-height: 1000px;
+  max-height: 650px;
 }
 
 .credit__form fieldset {
@@ -184,7 +184,7 @@ button {
   grid-template-areas:
     "client amount"
     "interest time"
-    "date state"
+    "date -"
     "submit submit";
   gap: 25px;
   padding: 5px;
@@ -208,10 +208,6 @@ button {
 
 .form__layout .form__field:nth-child(5) {
   grid-area: date;
-}
-
-.form__layout .form__field:nth-child(6) {
-  grid-area: state;
 }
 
 .form__layout .form__submit {
@@ -460,7 +456,6 @@ td {
       "interest"
       "time"
       "date"
-      "state"
       "submit";
   }
 
