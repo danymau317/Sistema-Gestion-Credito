@@ -101,14 +101,15 @@ Base URL: `http://localhost:5000/api/creditos`
 
 ## 🦴 Estructura del Proyecto
 
+```
 Sistema-Gestion-Credito/
 │
 ├── backend/
 │ ├── app.py
 │ ├── requirements.txt
 │ └── data/
-│ ├── database.db  
-│ └── init_db.py  
+│ ├── database.db
+│ └── init_db.py
 │
 ├── public/
 │ ├── index.html
@@ -123,3 +124,4 @@ Sistema-Gestion-Credito/
 ├── stats.js
 ├── credit.js
 └── utils.js
+```
