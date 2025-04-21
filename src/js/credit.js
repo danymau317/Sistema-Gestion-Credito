@@ -52,14 +52,78 @@ export function handleSubmitForm() {
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const cliente = form.client.value;
+        const clienteInput = form.client;
+
+        if (!/^[a-zA-Z\s]{3,}$/.test(cliente.trim())) {
+            alert('El nombre del cliente solo debera contener al menos 3 letras y solo letras');
+            clienteInput.classList.add('form__input-text--error');
+            clienteInput.focus();
+            return;
+        }
+
+        clienteInput.classList.remove('form__input-text--error');
+
+        const monto = parseFloat(form.amount.value);
+        const montoInput = form.amount;
+        if (monto <= 0) {
+            alert('El monto debe de ser mayor a 0');
+            montoInput.classList.add('form__input-text--error');
+            montoInput.focus();
+            return;
+        }
+
+        montoInput.classList.remove('form__input-text--error');
+
+        const tasa_interes = parseFloat(form.interest.value);
+        const tasa_interesInput = form.interest;
+
+        if (tasa_interes < 0 || tasa_interes > 100) {
+            alert('La tasa de interes debe ser un porcentaje valido entre 0 y 100');
+            tasa_interesInput.classList.add('form__input-text--error');
+            tasa_interesInput.focus();
+            return;
+        }
+
+        tasa_interesInput.classList.remove('form__input-text--error');
+
+        const plazo = parseInt(form.time.value);
+        const plazoInput = form.time;
+        if (plazo < 1 || plazo > 360) {
+            alert('El plazo debera de ser de 1 a 360 meses');
+            plazoInput.classList.add('form__input-text--error');
+            plazoInput.focus();
+            return;
+        }
+
+        plazoInput.classList.remove('form__input-text--error');
+
+        const fecha_otorgamiento = new Date(form.date.value);
+        const fecha_otorgamientoInput = form.date;
+        const fechaHoy = new Date();
+
+        fechaHoy.setHours(0, 0, 0, 0);
+        if (fecha_otorgamiento > fechaHoy) {
+            alert('La fecha de expedicion no puede ser en el futuro');
+            fecha_otorgamientoInput.classList.add('form__input-text--error');
+            fecha_otorgamientoInput.focus();
+            return;
+        }
+
+        if (isNaN(fecha_otorgamiento.getTime())) {
+            alert('fecha invalida');
+            return;
+        }
+
+        fecha_otorgamientoInput.remove('form__input-text--error');
 
         const data = {
             id: editingRow ? parseInt(editingRow.getAttribute('data-id')) : null,
-            cliente: form.client.value,
-            monto: parseFloat(form.amount.value),
-            tasa_interes: parseFloat(form.interest.value),
-            plazo: parseInt(form.time.value),
-            fecha_otorgamiento: form.date.value,
+            cliente,
+            monto,
+            tasa_interes,
+            plazo,
+            fecha_otorgamiento,
         };
 
         await setCredit(data);

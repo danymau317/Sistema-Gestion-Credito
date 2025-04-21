@@ -22,37 +22,29 @@ button {
   --subtitle-color-text--selected: #000;
   --title-color-text: #000;
   --state-table-background: #cfcfcf;
+  --border-color-input-error: #ff5555;
+  --border-color-input: #808080;
 }
 
 .credit {
-  border: 2px solid red;
-  padding: 5px;
   width: 100vw;
   display: flex;
   flex-flow: column wrap;
   justify-content: space-evenly;
+  gap: 20px;
 }
 
 .credit__header {
-  border: 2px solid blue;
-  padding: 5px;
   width: 100%;
 }
 
 .credit__header h1 {
-  border: 2px solid green;
   font-size: clamp(1.375rem, 1.0545rem + 1.7094vw, 1.875rem);
   font-weight: 600;
   padding: 5px;
 }
 
-.credit__nav {
-  border: 2px solid green;
-  padding: 5px;
-}
-
 .credit__list {
-  border: 2px solid red;
   width: 35%;
   display: flex;
   flex-flow: row wrap;
@@ -61,7 +53,6 @@ button {
 
 .list__item {
   list-style: none;
-  /* 12px - 18px */
   font-size: clamp(0.75rem, 0.5096rem + 1.2821vw, 1.125rem);
   cursor: pointer;
   color: var(--subtitle-color-text);
@@ -74,9 +65,7 @@ button {
 }
 
 .credit__dashboard {
-  border: 2px solid blue;
   width: 100%;
-  padding: 5px;
   visibility: visible;
   opacity: 1;
   max-height: 2000px;
@@ -88,15 +77,12 @@ button {
 }
 
 .credit__dashboard--disable {
-  border: 2px solid red;
   opacity: 0;
   visibility: hidden;
   max-height: 0px;
 }
 
 .new-credit {
-  border: 2px solid purple;
-  padding: 5px;
   width: 100%;
   display: flex;
   flex-flow: column wrap;
@@ -105,7 +91,6 @@ button {
 }
 
 .new-credit__header {
-  border: 2px solid green;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
@@ -113,7 +98,6 @@ button {
 
 .new-credit__header h2 {
   font-weight: 600;
-  /* 18px - 24px */
   font-size: clamp(1.125rem, 0.8846rem + 1.2821vw, 1.5rem);
 }
 
@@ -147,8 +131,6 @@ button {
 }
 
 .credit__form {
-  border: 2px solid green;
-  /* padding: 5px; */
   margin-left: 2%;
   overflow: hidden;
   max-height: 0;
@@ -171,7 +153,6 @@ button {
 }
 
 .form__label {
-  border: 2px solid red;
   color: var(--subtitle-color-text);
   font-weight: 500;
 }
@@ -180,7 +161,6 @@ button {
 }
 
 .form__layout {
-  border: 2px solid red;
   width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -223,26 +203,20 @@ button {
   flex-flow: column wrap;
 }
 
-.form__input-text,
-.form__select {
+.form__input-text {
   width: 100%;
   height: 5vh;
   padding: 5px;
 }
 
-.form__select {
-  font-family: "Inter";
-}
-
-.form__select option:active {
-  color: red;
-}
-
 .form__input-text:focus,
-.form__input-text:valid,
-.form__select:focus {
+.form__input-text:valid {
   border-radius: 5px;
-  border: 2px solid gray;
+  border: 2px solid var(--border-color-input);
+}
+
+.credit__form input.form__input-text--error {
+  border: 3px solid var(--border-color-input-error);
 }
 
 .form__select,
@@ -282,15 +256,12 @@ button {
 }
 
 .table__container {
-  border: 2px solid green;
-  padding: 5px;
   position: relative;
   overflow: visible;
   width: 100%;
 }
 
 .dashboard__table {
-  border: 2px solid red;
   width: 100%;
   text-align: center;
   border-collapse: separate;
@@ -323,13 +294,7 @@ td {
   font-size: clamp(1rem, 0.9199rem + 0.4274vw, 1.125rem);
 }
 
-.table__body
-  td:not(
-    .table__state--approved,
-    .table__state--paid,
-    .table__state--pending,
-    .table__state--rejected
-  ) {
+.table__body {
   color: var(--title-color-text);
   font-weight: 500;
 }
@@ -344,7 +309,6 @@ td {
 }
 
 .table__actions-options {
-  border: 2px solid cyan;
   background: #fff;
   position: absolute;
   opacity: 0;
@@ -364,7 +328,6 @@ td {
 }
 
 .actions-options__item {
-  border: 2px solid salmon;
   width: 100%;
   display: flex;
   flex-flow: row wrap;
