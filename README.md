@@ -33,11 +33,16 @@ Esta es una aplicación web para **registrar y visualizar créditos** construida
 1. Clona este repositorio:
 
    ```bash
-   git clone https://github.com/tu-usuario/Sistema-Gestion-Credito.git
+   git clone https://github.com/danymau317/Sistema-Gestion-Credito
+   cd Sistema-Gestion-Credito/backend
    ```
 
-2. Dirigete a la carpeta del backend
-   `cd backend`
+2. Crea un entorno vitual (recomendado)
+
+   ```bash
+    python -m venv venv
+    source venv/bin/activate  # En Windows: venv\Scripts\activate
+   ```
 
 3. Instala dependencias
    `pip install -r requirements.txt`
@@ -47,6 +52,47 @@ Esta es una aplicación web para **registrar y visualizar créditos** construida
 
 5. Ejecuta el servidor flask
    `pyhon app.py`
+
+## 🔌 API ENDPOINTS
+
+Base URL: `http://localhost:5000/api/creditos`
+
+| Método | Endpoint             | Descripción                    |
+| ------ | -------------------- | ------------------------------ |
+| GET    | `/api/creditos`      | Lista todos los créditos       |
+| POST   | `/api/creditos`      | Crea un nuevo crédito          |
+| PUT    | `/api/creditos/<id>` | Actualiza un crédito existente |
+| DELETE | `/api/creditos/<id>` | Elimina un crédito por ID      |
+
+## Ejemplos con CURL
+
+- Crea un Crédito
+
+  ```bash
+  curl -X POST http://127.0.0.1:5000/api/creditos \
+  -H "Content-Type: application/json" \
+  -d '{"cliente": "Juan Pérez", "monto": 10000, "tasa_interes": 5.5, "plazo": 12, "fecha_otorgamiento": "2025-04-17"}'
+  ```
+
+- Listar Creditos
+
+  ```bash
+  curl -X GET http://127.0.0.1:5000/api/creditos
+  ```
+
+- Actualizar un Crédito
+
+  ```bash
+  curl -X PUT http://127.0.0.1:5000/api/creditos/1 \
+  -H "Content-Type: application/json" \
+  -d '{"cliente": "Juan Pérez", "monto": 12000, "tasa_interes": 6.0, "plazo": 14, "fecha_otorgamiento": "2025-04-17"}'
+  ```
+
+- Eliminar un Crédito
+
+  ```bash
+  curl -X DELETE http://127.0.0.1:5000/api/creditos/1
+  ```
 
 ## 📙 Requisitos
 
