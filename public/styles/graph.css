@@ -8,13 +8,7 @@
 
 body {
   font-family: "Inter";
-  overflow-x: hidden;
-}
-
-input,
-button {
-  border: none;
-  outline: none;
+  border: 2px solid black;
 }
 
 :root {
@@ -27,24 +21,25 @@ button {
 .graph {
   border: 2px solid blue;
   padding: 5px;
-  opacity: 1;
-  visibility: visible;
-  max-height: 500px;
+  width: 100%;
   display: flex;
   flex-flow: column wrap;
   justify-content: space-evenly;
+  gap: 20px;
+  max-height: 1200px;
   transition: opacity 0.5s ease, visibility 0.5s ease, max-height 0.5s ease;
 }
 
 .graph--disable {
   visibility: hidden;
-  opacity: 0;
   max-height: 0px;
+  opacity: 0;
 }
 
 .graph__header {
   border: 2px solid green;
   padding: 5px;
+  width: 100%;
 }
 
 .graph__title {
@@ -81,4 +76,37 @@ button {
 
 .stats__description {
   color: var(--subtitle-color-text);
+}
+
+.graph__visual {
+  border: 2px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 55vh;
+  overflow: hidden;
+}
+
+#statsChart {
+  border: 2px solid blue;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 300px) and (max-width: 768px) {
+  .graph--disable {
+    display: none;
+  }
+
+  .graph__stats {
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .graph__visual {
+    height: 60vh;
+  }
 }

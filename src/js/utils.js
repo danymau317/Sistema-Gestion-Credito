@@ -1,3 +1,5 @@
+import { renderStadistics } from "./stats.js";
+
 export function listTab() {
     const listItems = document.querySelectorAll('.list__item');
 
@@ -19,16 +21,15 @@ export function showCreditStadistics() {
     const stadisticCreditArticle = document.querySelector('.graph');
 
     creditList.addEventListener('click', () => {
-        creditArticle.classList.toggle('credit__dashboard--disable');
-        stadisticCreditArticle.classList.toggle('graph--disable');
+        creditArticle.classList.remove('credit__dashboard--disable');
+        stadisticCreditArticle.classList.add('graph--disable');
     });
 
     creditStadistics.addEventListener('click', () => {
-        stadisticCreditArticle.classList.toggle('graph--disable');
-        creditArticle.classList.toggle('credit__dashboard--disable');
-    })
-
-
+        stadisticCreditArticle.classList.remove('graph--disable');
+        creditArticle.classList.add('credit__dashboard--disable');
+        renderStadistics();
+    });
 }
 
 export function enableForm() {
@@ -42,7 +43,6 @@ export function enableForm() {
 
     cancelCreditButton.addEventListener('click', () => {
         newCreditForm.classList.remove('credit__form--enable');
-        editingRow = null;
     });
 }
 

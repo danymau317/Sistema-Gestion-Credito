@@ -79,7 +79,7 @@ button {
   padding: 5px;
   visibility: visible;
   opacity: 1;
-  max-height: 1000px;
+  max-height: 2000px;
   display: flex;
   flex-flow: column wrap;
   justify-content: space-evenly;
@@ -88,6 +88,7 @@ button {
 }
 
 .credit__dashboard--disable {
+  border: 2px solid red;
   opacity: 0;
   visibility: hidden;
   max-height: 0px;
@@ -147,6 +148,7 @@ button {
 
 .credit__form {
   border: 2px solid green;
+  /* padding: 5px; */
   margin-left: 2%;
   overflow: hidden;
   max-height: 0;
@@ -306,8 +308,8 @@ button {
 .table__body,
 tr,
 td {
-  overflow: visible; /* <- Añadir esto */
-  position: relative; /* <- Requerido para stacking context */
+  overflow: visible;
+  position: relative;
 }
 
 .table__header th {
@@ -394,6 +396,10 @@ td {
     width: 100%;
   }
 
+  .credit__dashboard--disable {
+    display: none;
+  }
+
   .new-credit {
     gap: 20px;
   }
@@ -406,6 +412,10 @@ td {
 
   .new-credit__button {
     width: 45%;
+  }
+
+  .credit__form--enable {
+    max-height: 800px;
   }
 
   .credit__form fieldset {
